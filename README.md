@@ -1,5 +1,3 @@
-# Hypothetical-Credential-Request-Bot
-Coded in C#
 using System;
 using System.Net;
 using System.Net.Sockets;
