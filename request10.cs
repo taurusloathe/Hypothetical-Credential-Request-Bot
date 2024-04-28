@@ -296,33 +296,33 @@ public static class EncryptionLibrary
     {
         try
         {
-            //Implement encryption logic
-using (Aes aesAlg = Aes.Create())
-{
-// Key and IV management
-byte[] encryptedData;
-// Encryption process
-return Convert.ToBase64String(encryptedData);
-}
-}
-catch (Exception ex)
-{
-throw new Exception("Encryption failed.", ex);
-}
-}
+            // Implement encryption logic
+            using (Aes aesAlg = Aes.Create())
+            {
+                // Key and IV management
+                byte[] encryptedData;
+                // Encryption process
+                return Convert.ToBase64String(encryptedData);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Encryption failed.", ex);
+        }
+    }
 }
 
 public static class SecureStorage
 {
-public static void StoreData(string encryptedData, string key)
-{
-try
-{
-// Implement secure storage logic
-}
-catch (Exception ex)
-{
-throw new Exception("Data storage failed.", ex);
-}
-}
+    public static void StoreData(string encryptedData, string key)
+    {
+        try
+        {
+            // Implement secure storage logic
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Data storage failed.", ex);
+        }
+    }
 }
