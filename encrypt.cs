@@ -71,6 +71,7 @@ public class HypotheticalBot
                 // Read configuration from file
                 string[] lines = File.ReadAllLines(ConfigFilePath);
                 // Process configuration data (e.g., server address, encryption key)
+                // Add logic to handle configuration data
             }
             else
             {
@@ -369,20 +370,41 @@ public class HypotheticalBot
 
     public static class KeyManagement
     {
+        private static string currentKey;
+
         public static string GenerateSecureKey()
         {
             using (var rng = new RNGCryptoServiceProvider())
             {
                 byte[] key = new byte[32]; // 256-bit key
                 rng.GetBytes(key);
-                return Convert.ToBase64String(key);
+                currentKey = Convert.ToBase64String(key);
+                return currentKey;
             }
         }
 
         public static byte[] GetCurrentKey()
         {
             // Implement logic to retrieve the current encryption key securely
-            return Convert.FromBase64String(GenerateSecureKey());
+            if (string.IsNullOrEmpty(currentKey))
+            {
+                currentKey = GenerateSecureKey();
+            }
+            return Convert.FromBase64String(currentKey);
+        }
+    }
+
+    private static UserCredentials GetUserCredentials(string username)
+    {
+        try
+        {
+            var filter = Builders<UserCredentials>.Filter.Eq("Username", username);
+            return userCredentialsCollection.Find(filter).FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            LogError("GetUserCredentials", ex, "Failed to fetch user credentials.");
+            return null;
         }
     }
 
