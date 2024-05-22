@@ -7,6 +7,7 @@ using System.Net.Security;
 using System.Security.Authentication;
 using Serilog;
 using MongoDB.Driver;
+using System.Threading;
 
 public class HypotheticalBot
 {
@@ -138,7 +139,7 @@ public class HypotheticalBot
             // - Insert random delays
             // - Change execution flow dynamically
             Random rand = new Random();
-            int choice = rand.Next(1, 3); // Randomly choose an evasion technique
+            int choice = rand.Next(1, 4); // Randomly choose an evasion technique
             switch (choice)
             {
                 case 1:
@@ -146,6 +147,9 @@ public class HypotheticalBot
                     break;
                 case 2:
                     EvadeDetectionVersion2();
+                    break;
+                case 3:
+                    EvadeDetectionVersion3();
                     break;
                 default:
                     // Default behavior
@@ -161,15 +165,43 @@ public class HypotheticalBot
     // First version of the polymorphic method
     private static void EvadeDetectionVersion1()
     {
-        // Implement evasion technique 1
-        Console.WriteLine("Evasion technique 1 executed.");
+        // Implement evasion technique 1: Random Delays
+        Random rand = new Random();
+        int delay = rand.Next(1000, 5000); // Delay between 1 and 5 seconds
+        Thread.Sleep(delay);
+        Console.WriteLine($"Evasion technique 1 executed with a delay of {delay} milliseconds.");
     }
 
     // Second version of the polymorphic method
     private static void EvadeDetectionVersion2()
     {
-        // Implement evasion technique 2
-        Console.WriteLine("Evasion technique 2 executed.");
+        // Implement evasion technique 2: Change Execution Flow
+        Random rand = new Random();
+        int flowChoice = rand.Next(1, 3); // Randomly choose an execution path
+        if (flowChoice == 1)
+        {
+            Console.WriteLine("Evasion technique 2 executed: Path 1.");
+        }
+        else
+        {
+            Console.WriteLine("Evasion technique 2 executed: Path 2.");
+        }
+    }
+
+    // Third version of the polymorphic method
+    private static void EvadeDetectionVersion3()
+    {
+        // Implement evasion technique 3: Randomize Behavior
+        Random rand = new Random();
+        bool randomBehavior = rand.Next(0, 2) == 1; // Randomly choose behavior
+        if (randomBehavior)
+        {
+            Console.WriteLine("Evasion technique 3 executed: Random behavior 1.");
+        }
+        else
+        {
+            Console.WriteLine("Evasion technique 3 executed: Random behavior 2.");
+        }
     }
 
     public static void HandleCommandLineArgs(string[] args)
@@ -310,10 +342,10 @@ public class HypotheticalBot
         }
     }
 
-    private static string GatherSensitiveData()
+    public static string GatherSensitiveData()
     {
-        // Implement logic to gather sensitive data
-        return "Sensitive data gathered.";
+        // Simulated method to gather sensitive data
+        return "Sensitive data";
     }
 
     public static class EncryptionLibrary
@@ -322,11 +354,11 @@ public class HypotheticalBot
         {
             try
             {
-                // Implement encryption logic
                 using (Aes aesAlg = Aes.Create())
                 {
                     aesAlg.Key = KeyManagement.GetCurrentKey();
-                    aesAlg.IV = new byte[16]; // Initialization Vector (IV)
+                    aesAlg.GenerateIV();
+
                     // Create an encryptor to perform the stream transform.
                     ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
                     // Create the streams used for encryption.
